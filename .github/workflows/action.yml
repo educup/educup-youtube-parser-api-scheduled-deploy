@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: |
+      - name: commit
+        run: |
           git clone ${{ secrets.GIT_URL }}
           cd ${{ secrets.GIT_FOLDER }}
           git config --global user.name '${{ secrets.GIT_USERNAME }}'
