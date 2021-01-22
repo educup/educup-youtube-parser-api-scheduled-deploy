@@ -1,0 +1,19 @@
+name: action
+on:
+  schedule:
+    - cron: 0 0 * * *
+  workflow_dispatch:
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: |
+          git clone ${{ secrets.GIT_URL }}
+          cd ${{ secrets.GIT_FOLDER }}
+          git config --global user.name '${{ secrets.GIT_USERNAME }}'
+          git config --global user.email '${{ secrets.GIT_EMAIL }}'
+          echo "deploy_$(date +"%F %T")" > deploy_record.txt
+          git add deploy_record.txt
+          git commit -m "Commit for run Heroku deploy"
+          git push
